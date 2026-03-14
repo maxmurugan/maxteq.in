@@ -1,0 +1,1 @@
+console.log("Maxteq Electronics Website Loaded");
