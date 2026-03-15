@@ -4,200 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Maxteq Electronics – LED Display & Automation Solutions</title>
-  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Exo+2:wght@300;400;500;600&display=swap" rel="stylesheet"/>
-  <style>
-    :root {
-      --bg: #e8f4ff;
-      --bg2: #f4f9ff;
-      --bg3: #ffffff;
-      --accent: #0077cc;
-      --accent2: #005fa3;
-      --accent-light: #dbeeff;
-      --text: #0d2540;
-      --muted: #4a7099;
-      --border: rgba(0,119,204,0.13);
-      --card: #ffffff;
-      --shadow: 0 2px 24px rgba(0,100,200,0.07);
-    }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Exo 2', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      overflow-x: hidden;
-    }
-    body::before {
-      content: '';
-      position: fixed; inset: 0;
-      background-image: radial-gradient(circle, rgba(0,119,204,0.07) 1px, transparent 1px);
-      background-size: 28px 28px;
-      pointer-events: none; z-index: 0;
-    }
-
-    /* NAV */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 5%; height: 68px;
-      background: rgba(232,244,255,0.95);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--border);
-      box-shadow: 0 1px 20px rgba(0,100,200,0.06);
-    }
-    .logo { font-family: 'Rajdhani', sans-serif; font-size: 1.6rem; font-weight: 700; letter-spacing: 2px; color: var(--text); text-decoration: none; }
-    .logo span { color: var(--accent); }
-    nav ul { display: flex; gap: 2.5rem; list-style: none; }
-    nav ul a { font-family: 'Rajdhani', sans-serif; font-weight: 600; font-size: 0.95rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; position: relative; }
-    nav ul a::after { content: ''; position: absolute; bottom: -4px; left: 0; right: 0; height: 2px; background: var(--accent); transform: scaleX(0); transition: transform 0.2s; }
-    nav ul a:hover { color: var(--accent); }
-    nav ul a:hover::after { transform: scaleX(1); }
-    .nav-cta { background: var(--accent) !important; color: #fff !important; padding: 8px 22px; border-radius: 5px; }
-    .nav-cta:hover { background: var(--accent2) !important; }
-    .nav-cta::after { display: none !important; }
-    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; }
-    .hamburger span { display: block; width: 26px; height: 2px; background: var(--accent); border-radius: 2px; }
-
-    /* HERO */
-    #hero { position: relative; min-height: 100vh; display: flex; align-items: center; padding: 120px 5% 80px; overflow: hidden; z-index: 1; }
-    .hero-orb { position: absolute; border-radius: 50%; filter: blur(70px); pointer-events: none; }
-    .orb1 { width: 560px; height: 560px; background: radial-gradient(circle, rgba(0,119,204,0.14), transparent 70%); top: -80px; right: -60px; animation: pulse 7s ease-in-out infinite; }
-    .orb2 { width: 380px; height: 380px; background: radial-gradient(circle, rgba(0,160,255,0.09), transparent 70%); bottom: 60px; left: -60px; animation: pulse 9s ease-in-out infinite reverse; }
-    @keyframes pulse { 0%,100%{transform:scale(1)}50%{transform:scale(1.08)} }
-    .hero-content { position: relative; z-index: 2; max-width: 640px; }
-    .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--accent-light); border: 1px solid rgba(0,119,204,0.22); border-radius: 30px; padding: 6px 16px; font-size: 0.78rem; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 1.8rem; font-family: 'Rajdhani', sans-serif; font-weight: 600; }
-    .hero-badge .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); animation: blink 1.5s infinite; }
-    @keyframes blink { 0%,100%{opacity:1}50%{opacity:0.25} }
-    h1 { font-family: 'Rajdhani', sans-serif; font-size: clamp(2.6rem,5.5vw,4.6rem); font-weight: 700; line-height: 1.1; letter-spacing: 0.5px; margin-bottom: 1.2rem; color: var(--text); }
-    h1 em { font-style: normal; color: var(--accent); }
-    .hero-sub { font-size: 1.05rem; color: var(--muted); line-height: 1.75; margin-bottom: 2.5rem; max-width: 500px; font-weight: 400; }
-    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
-    .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: #fff; font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1rem; letter-spacing: 1.5px; text-transform: uppercase; padding: 14px 32px; border-radius: 5px; text-decoration: none; transition: background 0.2s, box-shadow 0.3s, transform 0.2s; box-shadow: 0 4px 18px rgba(0,119,204,0.25); }
-    .btn-primary:hover { background: var(--accent2); box-shadow: 0 6px 28px rgba(0,119,204,0.35); transform: translateY(-2px); }
-    .btn-outline { display: inline-flex; align-items: center; gap: 8px; border: 1.5px solid var(--accent); color: var(--accent); font-family: 'Rajdhani', sans-serif; font-weight: 600; font-size: 1rem; letter-spacing: 1.5px; text-transform: uppercase; padding: 13px 32px; border-radius: 5px; text-decoration: none; transition: background 0.2s, color 0.2s; }
-    .btn-outline:hover { background: var(--accent); color: #fff; }
-    .hero-visual { position: absolute; right: 5%; top: 50%; transform: translateY(-50%); z-index: 1; }
-    .led-matrix { display: grid; grid-template-columns: repeat(20,13px); grid-template-rows: repeat(14,13px); gap: 3px; opacity: 0.55; }
-    .led-dot { width: 13px; height: 13px; border-radius: 50%; background: rgba(0,119,204,0.1); transition: background 0.3s, box-shadow 0.3s; }
-    .led-dot.on  { background: #0077cc; box-shadow: 0 0 7px rgba(0,119,204,0.5); }
-    .led-dot.on2 { background: #e85d00; box-shadow: 0 0 7px rgba(232,93,0,0.45); }
-    .led-dot.on3 { background: #00a86b; box-shadow: 0 0 7px rgba(0,168,107,0.45); }
-
-    /* SECTIONS */
-    section { position: relative; z-index: 1; padding: 100px 5%; }
-    .section-label { font-family: 'Rajdhani', sans-serif; font-size: 0.78rem; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 0.7rem; font-weight: 600; }
-    .section-title { font-family: 'Rajdhani', sans-serif; font-size: clamp(1.9rem,3.5vw,2.8rem); font-weight: 700; letter-spacing: 0.5px; margin-bottom: 0.9rem; color: var(--text); }
-    .section-sub { color: var(--muted); font-size: 1rem; line-height: 1.7; max-width: 560px; }
-    .section-header { margin-bottom: 3.5rem; }
-
-    /* STATS */
-    .stats-bar { display: flex; background: var(--accent); position: relative; z-index: 1; }
-    .stat-item { flex: 1; padding: 2.2rem 2rem; text-align: center; border-right: 1px solid rgba(255,255,255,0.15); transition: background 0.3s; }
-    .stat-item:last-child { border-right: none; }
-    .stat-item:hover { background: rgba(0,0,0,0.08); }
-    .stat-num { font-family: 'Rajdhani', sans-serif; font-size: 2.6rem; font-weight: 700; color: #fff; }
-    .stat-label { font-size: 0.82rem; color: rgba(255,255,255,0.72); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
-
-    /* PRODUCTS */
-    #products { background: var(--bg2); }
-    .products-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(270px,1fr)); gap: 1.4rem; }
-    .product-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 2.2rem 2rem; position: relative; overflow: hidden; cursor: default; transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s; box-shadow: var(--shadow); }
-    .product-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg,var(--accent2),var(--accent)); transform: scaleX(0); transition: transform 0.4s; }
-    .product-card:hover { transform: translateY(-6px); border-color: rgba(0,119,204,0.25); box-shadow: 0 12px 40px rgba(0,100,200,0.13); }
-    .product-card:hover::before { transform: scaleX(1); }
-    .product-icon { width: 52px; height: 52px; border-radius: 12px; background: var(--accent-light); border: 1px solid rgba(0,119,204,0.15); display: flex; align-items: center; justify-content: center; margin-bottom: 1.4rem; font-size: 1.5rem; }
-    .product-tag { position: absolute; top: 1.2rem; right: 1.2rem; font-family: 'Rajdhani', sans-serif; font-size: 0.7rem; letter-spacing: 1.5px; text-transform: uppercase; padding: 3px 10px; border-radius: 20px; }
-    .tag-new     { background: #e6f9f0; color: #007a45; border: 1px solid #b3e8cc; }
-    .tag-popular { background: var(--accent-light); color: var(--accent); border: 1px solid rgba(0,119,204,0.2); }
-    .tag-soon    { background: #fff3ec; color: #c04800; border: 1px solid #ffd0b0; }
-    .product-name { font-family: 'Rajdhani', sans-serif; font-size: 1.3rem; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 0.6rem; color: var(--text); }
-    .product-desc { color: var(--muted); font-size: 0.9rem; line-height: 1.65; }
-    .product-specs { margin-top: 1.4rem; display: flex; flex-wrap: wrap; gap: 6px; }
-    .spec-tag { font-size: 0.75rem; padding: 3px 10px; border-radius: 4px; background: var(--bg); color: var(--muted); border: 1px solid var(--border); font-family: 'Rajdhani', sans-serif; font-weight: 600; }
-    .product-card.coming-soon { opacity: 0.65; }
-    .product-card.coming-soon:hover { transform: none; box-shadow: var(--shadow); }
-
-    /* ABOUT */
-    #about { background: var(--bg3); display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
-    .about-box { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 2.8rem; position: relative; overflow: hidden; box-shadow: var(--shadow); }
-    .about-box::after { content: 'MAXTEQ'; position: absolute; font-family: 'Rajdhani', sans-serif; font-size: 5.5rem; font-weight: 700; color: rgba(0,119,204,0.04); bottom: 10px; right: -10px; pointer-events: none; letter-spacing: 4px; }
-    .about-feature { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.7rem; }
-    .about-feature:last-child { margin-bottom: 0; }
-    .feature-icon { width: 40px; height: 40px; flex-shrink: 0; border-radius: 10px; background: var(--accent-light); border: 1px solid rgba(0,119,204,0.15); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
-    .feature-text h4 { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1.05rem; margin-bottom: 0.3rem; color: var(--text); }
-    .feature-text p { color: var(--muted); font-size: 0.88rem; line-height: 1.6; }
-
-    /* CONTACT */
-    #contact { background: var(--bg); }
-    .contact-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
-    .contact-info h3 { font-family: 'Rajdhani', sans-serif; font-size: 1.5rem; font-weight: 700; margin-bottom: 0.9rem; color: var(--text); }
-    .contact-info p { color: var(--muted); font-size: 0.95rem; line-height: 1.75; margin-bottom: 2rem; }
-    .contact-item { display: flex; align-items: center; gap: 1rem; padding: 1.1rem 1.4rem; background: var(--card); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 1rem; text-decoration: none; color: var(--text); transition: border-color 0.3s, transform 0.2s, box-shadow 0.3s; box-shadow: var(--shadow); }
-    .contact-item:hover { border-color: rgba(0,119,204,0.3); transform: translateX(5px); box-shadow: 0 6px 28px rgba(0,100,200,0.1); }
-    .contact-icon { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; }
-    .ci-whatsapp { background: #e6f9ee; border: 1px solid #b3e8cc; }
-    .ci-email    { background: var(--accent-light); border: 1px solid rgba(0,119,204,0.18); }
-    .ci-location { background: #fff4ec; border: 1px solid #ffd0b0; }
-    .contact-label { font-size: 0.72rem; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-bottom: 2px; font-family: 'Rajdhani', sans-serif; font-weight: 600; }
-    .contact-value { font-weight: 500; font-size: 0.95rem; color: var(--text); }
-    .contact-form { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 2.5rem; box-shadow: var(--shadow); }
-    .contact-form h3 { font-family: 'Rajdhani', sans-serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 1.5rem; color: var(--text); }
-    .form-group { margin-bottom: 1.1rem; }
-    .form-group label { display: block; font-size: 0.78rem; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; font-family: 'Rajdhani', sans-serif; font-weight: 600; }
-    .form-group input, .form-group textarea, .form-group select { width: 100%; background: var(--bg); border: 1px solid var(--border); border-radius: 5px; padding: 11px 13px; color: var(--text); font-family: 'Exo 2', sans-serif; font-size: 0.95rem; outline: none; transition: border-color 0.2s; }
-    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: rgba(0,119,204,0.45); }
-    .form-group textarea { height: 110px; resize: vertical; }
-    .form-group select option { background: #fff; }
-    .btn-submit { width: 100%; background: var(--accent); color: #fff; border: none; border-radius: 5px; padding: 14px; font-family: 'Rajdhani', sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: background 0.2s, box-shadow 0.3s, transform 0.2s; margin-top: 0.5rem; box-shadow: 0 4px 18px rgba(0,119,204,0.22); }
-    .btn-submit:hover { background: var(--accent2); box-shadow: 0 6px 28px rgba(0,119,204,0.32); transform: translateY(-1px); }
-
-    /* FLOATING BUTTONS */
-    .float-btns { position: fixed; bottom: 28px; right: 22px; z-index: 999; display: flex; flex-direction: column; gap: 12px; }
-    .float-btn { width: 54px; height: 54px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 1.45rem; box-shadow: 0 4px 18px rgba(0,0,0,0.15); transition: transform 0.2s, box-shadow 0.2s; position: relative; }
-    .float-btn:hover { transform: scale(1.1); }
-    .float-btn .tooltip { position: absolute; right: 64px; background: var(--text); color: #fff; padding: 6px 12px; border-radius: 5px; font-size: 0.78rem; white-space: nowrap; font-family: 'Rajdhani', sans-serif; letter-spacing: 0.5px; opacity: 0; pointer-events: none; transition: opacity 0.2s; }
-    .float-btn:hover .tooltip { opacity: 1; }
-    .fb-whatsapp { background: #25d366; color: #fff; box-shadow: 0 4px 18px rgba(37,211,102,0.3); }
-    .fb-email    { background: var(--accent); color: #fff; box-shadow: 0 4px 18px rgba(0,119,204,0.3); }
-
-    /* FOOTER */
-    footer { background: var(--text); padding: 2.8rem 5%; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; position: relative; z-index: 1; }
-    .footer-logo { font-family: 'Rajdhani', sans-serif; font-size: 1.4rem; font-weight: 700; color: #fff; }
-    .footer-logo span { color: #6ec6ff; }
-    .footer-links { display: flex; gap: 2rem; }
-    .footer-links a { color: rgba(255,255,255,0.55); text-decoration: none; font-size: 0.88rem; transition: color 0.2s; font-family: 'Rajdhani', sans-serif; }
-    .footer-links a:hover { color: #6ec6ff; }
-    .footer-copy { color: rgba(255,255,255,0.35); font-size: 0.8rem; }
-
-    /* MOBILE MENU */
-    .mobile-menu { display: none; position: fixed; top: 68px; left: 0; right: 0; background: rgba(232,244,255,0.98); border-bottom: 1px solid var(--border); padding: 1.5rem 5%; z-index: 99; flex-direction: column; gap: 1.2rem; }
-    .mobile-menu.open { display: flex; }
-    .mobile-menu a { font-family: 'Rajdhani', sans-serif; font-size: 1.1rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); text-decoration: none; padding: 0.5rem 0; border-bottom: 1px solid var(--border); transition: color 0.2s; }
-    .mobile-menu a:hover { color: var(--accent); }
-
-    @media (max-width:900px) {
-      nav ul { display: none; }
-      .hamburger { display: flex; }
-      .hero-visual { display: none; }
-      #about { grid-template-columns: 1fr; gap: 3rem; }
-      .contact-wrapper { grid-template-columns: 1fr; gap: 2rem; }
-      .stats-bar { flex-wrap: wrap; }
-      .stat-item { flex: 1 1 50%; }
-    }
-    @media (max-width:600px) {
-      h1 { font-size: 2.2rem; }
-      .products-grid { grid-template-columns: 1fr; }
-      .stat-item { flex: 1 1 100%; }
-      footer { flex-direction: column; text-align: center; }
-      .footer-links { flex-wrap: wrap; justify-content: center; gap: 1rem; }
-    }
-
-    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.6s ease, transform 0.6s ease; }
-    .reveal.visible { opacity: 1; transform: none; }
-  </style>
+  <meta name="description" content="Maxteq Electronics — Chennai-based manufacturer of GPS clocks, RGB LED modules, production display boards and alarm systems." />
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Exo+2:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
   <a href="#hero" class="logo">MAX<span>TEQ</span></a>
   <ul>
@@ -206,33 +19,60 @@
     <li><a href="#contact">Contact</a></li>
     <li><a href="#contact" class="nav-cta">Get a Quote</a></li>
   </ul>
-  <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+  <div class="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
 </nav>
 
 <div class="mobile-menu" id="mobileMenu">
   <a href="#products" onclick="toggleMenu()">Products</a>
-  <a href="#about" onclick="toggleMenu()">About</a>
-  <a href="#contact" onclick="toggleMenu()">Contact</a>
-  <a href="#contact" onclick="toggleMenu()">Get a Quote</a>
+  <a href="#about"    onclick="toggleMenu()">About</a>
+  <a href="#contact"  onclick="toggleMenu()">Contact</a>
+  <a href="#contact"  onclick="toggleMenu()">Get a Quote</a>
 </div>
 
+<!-- PRODUCT TICKER — scrolling text below nav -->
+<div class="ticker-wrap">
+  <div class="ticker-track" id="tickerTrack"></div>
+</div>
+
+<!-- HERO -->
 <section id="hero">
   <div class="hero-orb orb1"></div>
   <div class="hero-orb orb2"></div>
-  <div class="hero-content">
-    <div class="hero-badge"><span class="dot"></span> Chennai, India &mdash; Industrial LED Solutions</div>
-    <h1>Advanced <em>LED Display</em><br>&amp; Automation Systems</h1>
-    <p class="hero-sub">Maxteq Electronics designs high-performance GPS clocks, RGB LED modules, alarm systems, and production display boards for industrial and commercial environments.</p>
-    <div class="hero-btns">
-      <a href="#products" class="btn-primary">&#9657; Explore Products</a>
-      <a href="#contact" class="btn-outline">&#9993; Contact Us</a>
+
+  <div class="hero-inner">
+
+    <!-- LEFT: text -->
+    <div class="hero-left">
+      <div class="hero-badge">
+        <span class="dot"></span>
+        Chennai, India &mdash; Industrial LED Solutions
+      </div>
+      <h1>Advanced <em>LED Display</em> &amp; Automation Systems</h1>
+      <p class="hero-sub">
+        Maxteq Electronics designs high-performance GPS clocks, RGB LED modules,
+        alarm systems, and production display boards for industrial environments.
+      </p>
+      <div class="hero-btns">
+        <a href="#products" class="btn-primary">&#9657; Explore Products</a>
+        <a href="#contact"  class="btn-outline">&#9993; Contact Us</a>
+      </div>
     </div>
-  </div>
-  <div class="hero-visual">
-    <div class="led-matrix" id="ledMatrix"></div>
+
+    <!-- RIGHT: slideshow (add images: images/slides/001.jpeg … 031.jpeg) -->
+    <div class="hero-slideshow">
+      <div id="slideshowContainer"></div>
+      <button class="slide-arrow arrow-prev" onclick="changeSlide(-1)">&#8592;</button>
+      <button class="slide-arrow arrow-next" onclick="changeSlide(1)">&#8594;</button>
+      <div class="slide-dots" id="slideDots"></div>
+      <div class="slide-progress" id="slideProgress"></div>
+    </div>
+
   </div>
 </section>
 
+<!-- STATS -->
 <div class="stats-bar">
   <div class="stat-item reveal"><div class="stat-num">10+</div><div class="stat-label">Years Experience</div></div>
   <div class="stat-item reveal"><div class="stat-num">500+</div><div class="stat-label">Installations</div></div>
@@ -240,104 +80,165 @@
   <div class="stat-item reveal"><div class="stat-num">24/7</div><div class="stat-label">Support</div></div>
 </div>
 
+<!-- PRODUCTS -->
 <section id="products">
   <div class="section-header reveal">
     <div class="section-label">&#9632; What We Make</div>
     <h2 class="section-title">Our Products</h2>
-    <p class="section-sub">Precision-engineered LED display systems and timing solutions built for industrial reliability and long-term performance.</p>
+    <p class="section-sub">Precision-engineered LED display systems and timing solutions built for industrial reliability.</p>
   </div>
+
   <div class="products-grid">
 
-    <div class="product-card reveal">
-      <span class="product-tag tag-popular">Popular</span>
-      <div class="product-icon">&#128336;</div>
-      <div class="product-name">GPS Clock</div>
-      <p class="product-desc">GPS-synchronized master clock systems for precise timekeeping across factories, offices, and industrial facilities. Auto-syncs with satellite time signals for zero-drift accuracy.</p>
-      <div class="product-specs"><span class="spec-tag">GPS Sync</span><span class="spec-tag">NTP Ready</span><span class="spec-tag">RS485</span><span class="spec-tag">Large Display</span></div>
+    <div class="product-card reveal" data-product-id="gps-clock">
+      <div class="product-img" data-icon="&#128336;"></div>
+      <div class="product-body">
+        <span class="product-tag tag-popular">Popular</span>
+        <div class="product-name">GPS Clock</div>
+        <p class="product-desc">GPS-synchronized master clock systems for precise timekeeping across factories and offices. Zero-drift accuracy via satellite sync.</p>
+        <div class="product-specs">
+          <span class="spec-tag">GPS Sync</span><span class="spec-tag">NTP Ready</span>
+          <span class="spec-tag">RS485</span><span class="spec-tag">Large Display</span>
+        </div>
+      </div>
     </div>
 
-    <div class="product-card reveal">
-      <span class="product-tag tag-popular">Best Seller</span>
-      <div class="product-icon">&#127774;</div>
-      <div class="product-name">RGB Module — P10, P4, P6</div>
-      <p class="product-desc">High-brightness RGB LED matrix modules for indoor and outdoor display boards. Available in P4, P6, and P10 pixel pitch for various viewing distances and applications.</p>
-      <div class="product-specs"><span class="spec-tag">P4 / P6 / P10</span><span class="spec-tag">Full RGB</span><span class="spec-tag">Waterproof</span><span class="spec-tag">High Brightness</span></div>
+    <div class="product-card reveal" data-product-id="rgb-module">
+      <div class="product-img" data-icon="&#127774;"></div>
+      <div class="product-body">
+        <span class="product-tag tag-popular">Best Seller</span>
+        <div class="product-name">RGB Module — P10, P4, P6</div>
+        <p class="product-desc">High-brightness RGB LED matrix modules for indoor and outdoor display boards. Available in P4, P6, and P10 pixel pitch.</p>
+        <div class="product-specs">
+          <span class="spec-tag">P4 / P6 / P10</span><span class="spec-tag">Full RGB</span>
+          <span class="spec-tag">Waterproof</span><span class="spec-tag">High Brightness</span>
+        </div>
+      </div>
     </div>
 
-    <div class="product-card reveal">
-      <span class="product-tag tag-new">New</span>
-      <div class="product-icon">&#128276;</div>
-      <div class="product-name">Alarm Clock System</div>
-      <p class="product-desc">Industrial-grade programmable alarm and bell systems for factories, schools, and institutions. Multi-zone scheduling with loud buzzer output and LED time display.</p>
-      <div class="product-specs"><span class="spec-tag">Multi-Zone</span><span class="spec-tag">Programmable</span><span class="spec-tag">LED Display</span><span class="spec-tag">Relay Output</span></div>
+    <div class="product-card reveal" data-product-id="alarm-clock">
+      <div class="product-img" data-icon="&#128276;"></div>
+      <div class="product-body">
+        <span class="product-tag tag-new">New</span>
+        <div class="product-name">Alarm Clock System</div>
+        <p class="product-desc">Industrial-grade programmable alarm and bell systems for factories, schools, and institutions. Multi-zone scheduling with relay output.</p>
+        <div class="product-specs">
+          <span class="spec-tag">Multi-Zone</span><span class="spec-tag">Programmable</span>
+          <span class="spec-tag">LED Display</span><span class="spec-tag">Relay Output</span>
+        </div>
+      </div>
     </div>
 
-    <div class="product-card reveal">
-      <span class="product-tag tag-popular">Industrial</span>
-      <div class="product-icon">&#128202;</div>
-      <div class="product-name">Production Display Board</div>
-      <p class="product-desc">Real-time factory production monitoring display boards. Show live production count, targets, efficiency rates, and shift data — visible from across the shop floor.</p>
-      <div class="product-specs"><span class="spec-tag">Real-Time</span><span class="spec-tag">Large Format</span><span class="spec-tag">RS232 / RS485</span><span class="spec-tag">Custom Data</span></div>
+    <div class="product-card reveal" data-product-id="production-display">
+      <div class="product-img" data-icon="&#128202;"></div>
+      <div class="product-body">
+        <span class="product-tag tag-popular">Industrial</span>
+        <div class="product-name">Production Display Board</div>
+        <p class="product-desc">Real-time factory production monitoring boards showing live count, targets, efficiency rates, and shift data across the shop floor.</p>
+        <div class="product-specs">
+          <span class="spec-tag">Real-Time</span><span class="spec-tag">Large Format</span>
+          <span class="spec-tag">RS232/RS485</span><span class="spec-tag">Custom Data</span>
+        </div>
+      </div>
     </div>
 
-    <div class="product-card coming-soon reveal">
-      <span class="product-tag tag-soon">Coming Soon</span>
-      <div class="product-icon">&#43;</div>
-      <div class="product-name">More Products</div>
-      <p class="product-desc">New product lines currently in development. Contact us to discuss custom LED display solutions and automation systems tailored to your requirements.</p>
-      <div class="product-specs"><span class="spec-tag">Custom Solutions</span><span class="spec-tag">On Request</span></div>
+    <div class="product-card reveal" data-product-id="target-display">
+      <div class="product-img" data-icon="&#127919;"></div>
+      <div class="product-body">
+        <span class="product-tag tag-popular">Industrial</span>
+        <div class="product-name">Target &amp; Actual Display</div>
+        <p class="product-desc">Large 7-segment digit display showing real-time TARGET vs ACTUAL production counts with built-in clock for full shop floor visibility.</p>
+        <div class="product-specs">
+          <span class="spec-tag">7-Segment</span><span class="spec-tag">Built-in Clock</span>
+          <span class="spec-tag">High Visibility</span><span class="spec-tag">RS485</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card coming-soon reveal" data-product-id="coming-soon">
+      <div class="product-img" data-icon="&#43;"></div>
+      <div class="product-body">
+        <span class="product-tag tag-soon">Coming Soon</span>
+        <div class="product-name">More Products</div>
+        <p class="product-desc">New product lines in development. Contact us for custom LED display and automation solutions tailored to your requirements.</p>
+        <div class="product-specs">
+          <span class="spec-tag">Custom Solutions</span><span class="spec-tag">On Request</span>
+        </div>
+      </div>
     </div>
 
   </div>
 </section>
 
+<!-- ABOUT -->
 <section id="about">
   <div class="about-content">
     <div class="section-label reveal">&#9632; Who We Are</div>
     <h2 class="section-title reveal">Built in Chennai.<br>Trusted by Industry.</h2>
-    <p class="section-sub reveal" style="margin-bottom:2.5rem;">Maxteq Electronics is a Chennai-based manufacturer of industrial LED display systems and automation electronics. We design, build, and support every product in-house — from GPS timing systems to large-format production monitoring boards.</p>
+    <p class="section-sub reveal" style="margin-bottom:2.5rem;">
+      Maxteq Electronics is a Chennai-based manufacturer of industrial LED display systems and automation electronics.
+      We design, build, and support every product in-house.
+    </p>
     <a href="#contact" class="btn-primary reveal" style="display:inline-flex;">Contact Us Today</a>
   </div>
+
   <div class="about-visual reveal">
     <div class="about-box">
       <div class="about-feature">
         <div class="feature-icon">&#9889;</div>
-        <div class="feature-text"><h4>In-House Design &amp; Manufacturing</h4><p>Every circuit board, enclosure, and firmware is designed by our engineering team in Chennai for maximum reliability.</p></div>
+        <div class="feature-text">
+          <h4>In-House Design &amp; Manufacturing</h4>
+          <p>Every circuit board, enclosure, and firmware designed by our Chennai engineering team.</p>
+        </div>
       </div>
       <div class="about-feature">
         <div class="feature-icon">&#128187;</div>
-        <div class="feature-text"><h4>Custom Software Integration</h4><p>Our display systems connect to your existing ERP, SCADA, or production software via RS485, RS232, USB, or Ethernet.</p></div>
+        <div class="feature-text">
+          <h4>Custom Software Integration</h4>
+          <p>Connect to your ERP, SCADA, or production software via RS485, RS232, USB, or Ethernet.</p>
+        </div>
       </div>
       <div class="about-feature">
         <div class="feature-icon">&#128295;</div>
-        <div class="feature-text"><h4>After-Sales Support</h4><p>We provide on-site installation, commissioning, and ongoing technical support across Tamil Nadu and beyond.</p></div>
+        <div class="feature-text">
+          <h4>After-Sales Support</h4>
+          <p>On-site installation, commissioning, and technical support across Tamil Nadu and beyond.</p>
+        </div>
       </div>
       <div class="about-feature">
         <div class="feature-icon">&#127970;</div>
-        <div class="feature-text"><h4>Industrial-Grade Build Quality</h4><p>Designed to survive factory conditions — dust, vibration, heat, and continuous 24/7 operation without failure.</p></div>
+        <div class="feature-text">
+          <h4>Industrial-Grade Build Quality</h4>
+          <p>Built to survive dust, vibration, heat, and continuous 24/7 factory operation.</p>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- CONTACT -->
 <section id="contact">
   <div class="section-header reveal">
     <div class="section-label">&#9632; Get In Touch</div>
     <h2 class="section-title">Contact Us</h2>
-    <p class="section-sub">Interested in our products? Have a custom requirement? Reach out — we'll get back to you within 24 hours.</p>
+    <p class="section-sub">Interested in our products? We'll get back to you within 24 hours.</p>
   </div>
+
   <div class="contact-wrapper">
     <div class="contact-info reveal">
       <h3>Let's talk about your project</h3>
-      <p>Whether you need GPS clock systems, RGB LED modules, production monitoring boards, or a fully custom display solution — we're ready to help.</p>
+      <p>Whether you need GPS clocks, RGB LED modules, production boards, or a custom solution — we're ready to help.</p>
+
       <a href="https://wa.me/919876543210?text=Hi%20Maxteq%2C%20I%20am%20interested%20in%20your%20LED%20display%20products." class="contact-item" target="_blank">
         <div class="contact-icon ci-whatsapp">&#128241;</div>
-        <div><div class="contact-label">WhatsApp</div><div class="contact-value">+91 98765 43210</div></div>
+        <div><div class="contact-label">WhatsApp</div><div class="contact-value">+91 8667492223</div></div>
       </a>
+
       <a href="mailto:sales@maxteq.in?subject=Product%20Inquiry" class="contact-item">
         <div class="contact-icon ci-email">&#9993;</div>
-        <div><div class="contact-label">Email</div><div class="contact-value">sales@maxteq.in</div></div>
+        <div><div class="contact-label">Email</div><div class="contact-value">Maxmurugan@gmail.com</div></div>
       </a>
+
       <div class="contact-item" style="cursor:default;">
         <div class="contact-icon ci-location">&#128205;</div>
         <div><div class="contact-label">Location</div><div class="contact-value">Chennai, Tamil Nadu, India</div></div>
@@ -346,12 +247,12 @@
 
     <div class="contact-form reveal">
       <h3>Send an Enquiry</h3>
-      <div class="form-group"><label>Your Name</label><input type="text" placeholder="e.g. Rajesh Kumar" /></div>
-      <div class="form-group"><label>Phone / WhatsApp</label><input type="tel" placeholder="+91 98765 43210" /></div>
-      <div class="form-group"><label>Email Address</label><input type="email" placeholder="you@company.com" /></div>
+      <div class="form-group"><label for="fName">Your Name</label><input id="fName" type="text" placeholder="e.g. Rajesh Kumar" /></div>
+      <div class="form-group"><label for="fPhone">Phone / WhatsApp</label><input id="fPhone" type="tel" placeholder="+91 98765 43210" /></div>
+      <div class="form-group"><label for="fEmail">Email Address</label><input id="fEmail" type="email" placeholder="you@company.com" /></div>
       <div class="form-group">
-        <label>Product Interest</label>
-        <select>
+        <label for="fProduct">Product Interest</label>
+        <select id="fProduct">
           <option value="">Select a product...</option>
           <option>GPS Clock</option>
           <option>RGB Module P10</option>
@@ -359,15 +260,17 @@
           <option>RGB Module P6</option>
           <option>Alarm Clock System</option>
           <option>Production Display Board</option>
+          <option>Target &amp; Actual Display</option>
           <option>Custom / Other</option>
         </select>
       </div>
-      <div class="form-group"><label>Message</label><textarea placeholder="Tell us about your requirement, quantity, or installation site..."></textarea></div>
+      <div class="form-group"><label for="fMessage">Message</label><textarea id="fMessage" placeholder="Tell us your requirement, quantity, or installation site..."></textarea></div>
       <button class="btn-submit" onclick="sendEnquiry()">&#9993; Send Enquiry via WhatsApp</button>
     </div>
   </div>
 </section>
 
+<!-- FOOTER -->
 <footer>
   <div class="footer-logo">MAX<span>TEQ</span> Electronics</div>
   <div class="footer-links">
@@ -379,6 +282,7 @@
   <div class="footer-copy">&copy; 2026 Maxteq Electronics, Chennai</div>
 </footer>
 
+<!-- FLOATING BUTTONS -->
 <div class="float-btns">
   <a href="https://wa.me/919876543210?text=Hi%20Maxteq%2C%20I%20am%20interested%20in%20your%20products." class="float-btn fb-whatsapp" target="_blank">
     <span class="tooltip">Chat on WhatsApp</span>&#128241;
@@ -388,44 +292,6 @@
   </a>
 </div>
 
-<script>
-  const matrix = document.getElementById('ledMatrix');
-  const dots = [];
-  for (let i = 0; i < 280; i++) {
-    const d = document.createElement('div');
-    d.className = 'led-dot';
-    matrix.appendChild(d);
-    dots.push(d);
-  }
-  function randomLED() {
-    dots.forEach(d => d.className = 'led-dot');
-    const colors = ['on','on2','on3'];
-    for (let i = 0; i < 55; i++) {
-      dots[Math.floor(Math.random()*280)].className = 'led-dot ' + colors[Math.floor(Math.random()*3)];
-    }
-  }
-  setInterval(randomLED, 200);
-  randomLED();
-
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.reveal').forEach(r => observer.observe(r));
-
-  function toggleMenu() { document.getElementById('mobileMenu').classList.toggle('open'); }
-
-  function sendEnquiry() {
-    const inputs = document.querySelectorAll('.contact-form input');
-    const name = inputs[0].value, phone = inputs[1].value;
-    const product = document.querySelector('.contact-form select').value;
-    const msg = document.querySelector('.contact-form textarea').value;
-    let text = 'Hi Maxteq Electronics! I am interested in your products.';
-    if (name) text += `\n\nName: ${name}`;
-    if (phone) text += `\nPhone: ${phone}`;
-    if (product) text += `\nProduct: ${product}`;
-    if (msg) text += `\nMessage: ${msg}`;
-    window.open(`https://wa.me/919876543210?text=${encodeURIComponent(text)}`, '_blank');
-  }
-</script>
+<script src="script.js"></script>
 </body>
 </html>
