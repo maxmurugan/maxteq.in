@@ -238,7 +238,7 @@ h1 em { font-style: normal; color: var(--accent); }
   position: relative;
   overflow: hidden;
   background: #0d1f35;
-  height: 420px;
+  height: 530px;
   align-self: flex-start;
   border-radius: 12px 0 0 12px;
   box-shadow: -8px 0 40px rgba(0,100,200,0.15);
@@ -251,7 +251,13 @@ h1 em { font-style: normal; color: var(--accent); }
   transform: scale(1);
 }
 .slide.active { opacity: 1; transform: scale(1) !important; }
-.slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  background: #0d1f35;
+}
 .slide.effect-zoom-in   { transform: scale(1.08); }
 .slide.effect-zoom-out  { transform: scale(0.94); }
 .slide.effect-slide-left  { transform: translateX(50px); }
