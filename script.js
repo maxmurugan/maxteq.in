@@ -238,7 +238,7 @@ function sendEnquiry() {
   if (product) text += `\nProduct: ${product}`;
   if (msg)     text += `\nMessage: ${msg}`;
 
-  const waNumber = "919876543210"; // ← CHANGE THIS TO YOUR NUMBER
+  const waNumber = "918667492223"; // ← CHANGE THIS TO YOUR NUMBER
   window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(text)}`, "_blank");
 }
 window.sendEnquiry = sendEnquiry;
